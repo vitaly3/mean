@@ -6,7 +6,8 @@
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-
+.gitignore
+/config
 # dependencies
 /node_modules
 

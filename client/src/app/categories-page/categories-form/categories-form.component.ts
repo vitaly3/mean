@@ -1,11 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CategoriesService} from "../../shared/services/categories.service";
 import {switchMap} from "rxjs/operators";
 import {of} from "rxjs";
 import {MaterialService} from "../../shared/classes/material.service";
 import {Category} from "../../shared/interfaces";
+import {response} from "express";
 
 @Component({
   selector: 'app-categories-form',
@@ -20,7 +21,8 @@ export class CategoriesFormComponent implements OnInit {
   imagePreview: string | ArrayBuffer = ''
   category: Category
   constructor(private route: ActivatedRoute,
-              private categoriesService: CategoriesService) { }
+              private categoriesService: CategoriesService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -54,6 +56,7 @@ export class CategoriesFormComponent implements OnInit {
         error => MaterialService.toast(error.error.message)
       )
   }
+
   onSubmit(): void {
     this.form.disable()
     let obs$
@@ -77,6 +80,18 @@ export class CategoriesFormComponent implements OnInit {
 
   triggerClick() {
     this.inputRef.nativeElement.click()
+  }
+
+  deleteCategory() {
+    const decision = window.confirm(`Are you sure to delete ${this.category.name}?`)
+    if (decision) {
+      this.categoriesService.delete(this.category._id)
+        .subscribe(
+          response => MaterialService.toast(response.message),
+          error => MaterialService.toast(error.error.message),
+          () => this.router.navigate(['/categories'])
+        )
+    }
   }
 
   onFileUpload(event: any) {

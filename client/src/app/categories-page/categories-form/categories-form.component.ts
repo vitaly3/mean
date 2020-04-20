@@ -65,7 +65,7 @@ export class CategoriesFormComponent implements OnInit {
     obs$.subscribe(
       category => {
         this.form.enable()
-        MaterialService.toast('Saves')
+        MaterialService.toast('Saved')
         this.category = category
     },
       error => {

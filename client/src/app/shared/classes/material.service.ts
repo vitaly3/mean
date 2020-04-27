@@ -19,6 +19,10 @@ export class MaterialService {
     M.toast({html: message})
   }
 
+  static initTapTarget(ref: ElementRef): MaterialInstance {
+    return M.TapTarget.init(ref.nativeElement)
+  }
+
   static initModal(ref: ElementRef): MaterialInstance {
     return M.Modal.init(ref.nativeElement)
   }

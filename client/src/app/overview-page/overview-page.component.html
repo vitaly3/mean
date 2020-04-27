@@ -1,7 +1,11 @@
 <div class="page-title">
   <h4>
-    Обзор за вчера (09.04.2018)
-    <i class="material-icons black-text pointer" id="dashboard-info">info_outline</i>
+    Обзор за вчера ({{this.yesterday | date:'dd.MM.yyyy'}})
+    <i
+      class="material-icons black-text pointer"
+      id="dashboard-info"
+      (click)="openInfo()"
+    >info_outline</i>
   </h4>
 </div>
 
@@ -57,3 +61,9 @@
 <ng-template #loader>
   <app-loader></app-loader>
 </ng-template>
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+    <h5>Зачем нужна эта страница?</h5>
+    <p>Страница “Обзор” покажет динамику продаж за предыдущий день. Сравнение со средним значениями поможет вам понять, как идут дела у Вашего бизнеса.</p>
+  </div>
+</div>
